@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:provider/provider.dart';
+import 'package:vibration/vibration.dart';
 
 import '../controller/calculator_controller.dart';
 
@@ -26,7 +28,7 @@ class SymbolCalculator extends StatefulWidget {
 
 class _SymbolCalculatorState extends State<SymbolCalculator> {
   final Map<SymbolCalculatorCharacter, PairSymbolCalculator> mapSymbols =
-  <SymbolCalculatorCharacter, PairSymbolCalculator>{
+      <SymbolCalculatorCharacter, PairSymbolCalculator>{
     SymbolCalculatorCharacter.EQUAL: const PairSymbolCalculator(
         symbolName: 'assets/icons/equal_icon.svg',
         symbolColor: Color.fromRGBO(158, 165, 178, 1)),
@@ -49,6 +51,7 @@ class _SymbolCalculatorState extends State<SymbolCalculator> {
 
   @override
   Widget build(BuildContext context) {
+    const _type = FeedbackType.heavy;
     return Listener(
       onPointerUp: (event) {
         setState(() {
@@ -70,6 +73,23 @@ class _SymbolCalculatorState extends State<SymbolCalculator> {
                 {
                   Provider.of<CalculatorController>(context, listen: false)
                       .remove();
+                }
+                break;
+              case SymbolCalculatorCharacter.SWITCH:
+                {
+                  Vibrate.feedback(_type);
+                }
+                break;
+            }
+          },
+          onLongPress: () {
+            switch (widget.symbolCalculatorCharacter) {
+              case SymbolCalculatorCharacter.REMOVE:
+                {
+                  Provider.of<CalculatorController>(context, listen: false)
+                      .removeAll();
+
+                  Vibrate.feedback(_type);
                 }
             }
           },
@@ -100,16 +120,16 @@ class _SymbolCalculatorState extends State<SymbolCalculator> {
           child: Center(
             child: pressed
                 ? SvgPicture.asset(
-                mapSymbols[widget.symbolCalculatorCharacter]!.symbolName,
-                height: 32,
-                width: 32,
-                color: Colors.white,
-                semanticsLabel: 'A red up arrow')
+                    mapSymbols[widget.symbolCalculatorCharacter]!.symbolName,
+                    height: 32,
+                    width: 32,
+                    color: Colors.white,
+                    semanticsLabel: 'A red up arrow')
                 : SvgPicture.asset(
-                mapSymbols[widget.symbolCalculatorCharacter]!.symbolName,
-                height: 32,
-                width: 32,
-                semanticsLabel: 'A red up arrow'),
+                    mapSymbols[widget.symbolCalculatorCharacter]!.symbolName,
+                    height: 32,
+                    width: 32,
+                    semanticsLabel: 'A red up arrow'),
           ),
         ),
       ),

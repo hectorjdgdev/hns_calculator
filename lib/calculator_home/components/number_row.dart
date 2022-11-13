@@ -21,23 +21,26 @@ class _NumberRowResultState extends State<NumberRowResult> {
 
   @override
   Widget build(BuildContext context) {
+    Color colorText = widget.activeCalculator
+        ? Colors.black
+        : const Color.fromRGBO(158, 165, 178, 1);
     return SizedBox(
       height: 78,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // hsn_money.svg
-          Row(children: [
-            SvgPicture.asset(widget.icon,
-                height: 30,
-                color: Colors.blue,
-                semanticsLabel: 'A red up arrow'),
-            const SizedBox(width: 6),
-            const Text(
-              'HNS',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
-            )
-          ]),
+          Center(
+            child: Row(children: [
+              SizedBox(
+                width: 88,
+                child: SvgPicture.asset(widget.icon,
+                    color: colorText,
+                    height: 26,
+                    semanticsLabel: 'A red up arrow'),
+              ),
+            ]),
+          ),
           widget.activeCalculator
               ? Consumer<CalculatorController>(
                   builder: (context, calculator, child) {
@@ -46,12 +49,16 @@ class _NumberRowResultState extends State<NumberRowResult> {
                         child: AutoSizeTextField(
                       controller: textEditingController,
                       textAlign: TextAlign.end,
-                      style: const TextStyle(fontSize: 64, color: Colors.black),
+                      style: const TextStyle(
+                          fontSize: 64,
+                          color: Colors.black,
+                          fontFamily: 'Urbanist-Light'),
                       maxLines: 1,
+                      showCursor: true,
+                      cursorColor: Colors.red,
                       decoration: const InputDecoration(
                           border: InputBorder.none,
-                          isDense: true,
-                          contentPadding: EdgeInsets.all(20)),
+                          contentPadding: EdgeInsets.only(bottom: 0)),
                     ));
                   },
                 )
@@ -59,7 +66,10 @@ class _NumberRowResultState extends State<NumberRowResult> {
                   child: AutoSizeTextField(
                   controller: textEditingController,
                   textAlign: TextAlign.end,
-                  style: const TextStyle(fontSize: 64, color: Colors.black),
+                  style: const TextStyle(
+                      fontSize: 64,
+                      color: Colors.black,
+                      fontFamily: 'Urbanist-Light'),
                   maxLines: 1,
                   decoration: const InputDecoration(
                       border: InputBorder.none,

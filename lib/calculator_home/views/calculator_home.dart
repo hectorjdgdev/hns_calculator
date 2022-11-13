@@ -44,7 +44,7 @@ class _CalculatorHomeState extends State<CalculatorHome> {
                           primary: false,
                           shrinkWrap: true,
                           crossAxisCount: 4,
-                          children:    <Widget>[
+                          children:  <Widget>[
                             const CharacterCalculator(character: '7'),
                             const CharacterCalculator(character: '8'),
                             const CharacterCalculator(character: '9'),

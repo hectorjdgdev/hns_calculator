@@ -55,7 +55,7 @@ class _CharacterCalculatorState extends State<CharacterCalculator> {
         child: Text(
           widget.character,
           style: const TextStyle(
-          fontSize: 24, fontWeight: FontWeight.w400),
+          fontSize: 32, fontWeight: FontWeight.w400, fontFamily: 'Urbanist-Regular'),
         ),
       ),
     );
