@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:provider/provider.dart';
-import 'package:vibration/vibration.dart';
-
 import '../controller/calculator_controller.dart';
 
 enum SymbolCalculatorCharacter { REMOVE, EQUAL, PLUS, MINUS, SWITCH }
@@ -51,7 +49,6 @@ class _SymbolCalculatorState extends State<SymbolCalculator> {
 
   @override
   Widget build(BuildContext context) {
-    const _type = FeedbackType.heavy;
     return Listener(
       onPointerUp: (event) {
         setState(() {
@@ -77,7 +74,7 @@ class _SymbolCalculatorState extends State<SymbolCalculator> {
                 break;
               case SymbolCalculatorCharacter.SWITCH:
                 {
-                  Vibrate.feedback(_type);
+
                 }
                 break;
             }
@@ -88,8 +85,7 @@ class _SymbolCalculatorState extends State<SymbolCalculator> {
                 {
                   Provider.of<CalculatorController>(context, listen: false)
                       .removeAll();
-
-                  Vibrate.feedback(_type);
+                  HapticFeedback.mediumImpact();
                 }
             }
           },
