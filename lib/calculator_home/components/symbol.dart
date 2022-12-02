@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../controller/calculator_controller.dart';
 
-enum SymbolCalculatorCharacter { REMOVE, EQUAL, PLUS, MINUS, SWITCH }
+
 
 class PairSymbolCalculator {
   final String symbolName;
@@ -77,7 +77,19 @@ class _SymbolCalculatorState extends State<SymbolCalculator> {
 
                 }
                 break;
+              case SymbolCalculatorCharacter.EQUAL:{
+                Provider.of<CalculatorController>(context, listen: false)
+                    .equalOperation();
+              }
+              break;
+              case SymbolCalculatorCharacter.MINUS:
+              case SymbolCalculatorCharacter.PLUS:{
+                Provider.of<CalculatorController>(context, listen: false)
+                    .clickMathOperation(widget.symbolCalculatorCharacter);
+              }
+              break;
             }
+
           },
           onLongPress: () {
             switch (widget.symbolCalculatorCharacter) {

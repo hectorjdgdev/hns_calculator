@@ -44,7 +44,7 @@ class _NumberRowResultState extends State<NumberRowResult> {
           widget.activeCalculator
               ? Consumer<CalculatorController>(
                   builder: (context, calculator, child) {
-                    textEditingController.text = calculator.numberString;
+                    textEditingController.text = calculator.numberStringVisual;
                     return Expanded(
                         child: AutoSizeTextField(
                       controller: textEditingController,
