@@ -45,86 +45,74 @@ class _SymbolCalculatorState extends State<SymbolCalculator> {
 
   final Color colorNormal = const Color.fromRGBO(249, 251, 255, 1);
 
-  bool pressed = false;
+  bool isPressed = false;
 
   @override
   Widget build(BuildContext context) {
-    return Listener(
-      onPointerUp: (event) {
-        setState(() {
-          pressed = false;
-        });
-      },
-      onPointerDown: (event) {
-        setState(() {
-          pressed = true;
-        });
-      },
-      child: Container(
-        margin: const EdgeInsets.only(top: 12, right: 12),
-        height: 80,
-        child: TextButton(
-          onPressed: () {
-            switch (widget.symbolCalculatorCharacter) {
-              case SymbolCalculatorCharacter.REMOVE:
-                {
-                  Provider.of<CalculatorController>(context, listen: false)
-                      .remove();
-                }
-                break;
-              case SymbolCalculatorCharacter.SWITCH:
-                {
-
-                }
-                break;
-              case SymbolCalculatorCharacter.EQUAL:{
+    return Container(
+      margin: const EdgeInsets.only(top: 12, right: 12),
+      height: 80,
+      child: GestureDetector(
+        onTapDown: (tap) {
+          switch (widget.symbolCalculatorCharacter) {
+            case SymbolCalculatorCharacter.REMOVE:
+              {
                 Provider.of<CalculatorController>(context, listen: false)
-                    .equalOperation();
+                    .remove();
               }
               break;
-              case SymbolCalculatorCharacter.MINUS:
-              case SymbolCalculatorCharacter.PLUS:{
-                Provider.of<CalculatorController>(context, listen: false)
-                    .clickMathOperation(widget.symbolCalculatorCharacter);
+            case SymbolCalculatorCharacter.SWITCH:
+              {
+
               }
               break;
+            case SymbolCalculatorCharacter.EQUAL:{
+              Provider.of<CalculatorController>(context, listen: false)
+                  .equalOperation();
             }
-
-          },
-          onLongPress: () {
-            switch (widget.symbolCalculatorCharacter) {
-              case SymbolCalculatorCharacter.REMOVE:
-                {
-                  Provider.of<CalculatorController>(context, listen: false)
-                      .removeAll();
-                  HapticFeedback.mediumImpact();
-                }
+            break;
+            case SymbolCalculatorCharacter.MINUS:
+            case SymbolCalculatorCharacter.PLUS:{
+              Provider.of<CalculatorController>(context, listen: false)
+                  .clickMathOperation(widget.symbolCalculatorCharacter);
             }
-          },
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                  if (states.contains(MaterialState.pressed)) {
-                    return mapSymbols[widget.symbolCalculatorCharacter]!
-                      .symbolColor;
-                  }
-                  return colorNormal; // Defer to the widget's default.
-                }),
-            shape: MaterialStateProperty.resolveWith<OutlinedBorder>((_) {
-              return const CircleBorder(side: BorderSide.none);
-            }),
-            side: MaterialStateProperty.resolveWith((states) {
-              return BorderSide.none;
-            }),
-            foregroundColor: MaterialStateProperty.resolveWith((states) {
-              if (states.contains(MaterialState.pressed)) {
-                return Colors.white;
+            break;
+          }
+          setState(() {
+            isPressed = true;
+          });
+        },
+        onTapUp: (tap){
+          setState(() {
+            isPressed = false;
+          });
+        },
+        onLongPressStart: (tap) {
+          switch (widget.symbolCalculatorCharacter) {
+            case SymbolCalculatorCharacter.REMOVE:
+              {
+                Provider.of<CalculatorController>(context, listen: false)
+                    .removeAll();
+                HapticFeedback.mediumImpact();
               }
-              return mapSymbols[widget.symbolCalculatorCharacter]!.symbolColor;
-            }),
+          }
+          setState(() {
+            isPressed = true;
+          });
+        },
+        onLongPressEnd: (tap){
+          setState(() {
+            isPressed = false;
+          });
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: isPressed ? mapSymbols[widget.symbolCalculatorCharacter]!
+                .symbolColor : colorNormal,
           ),
           child: Center(
-            child: pressed
+            child: isPressed
                 ? SvgPicture.asset(
                     mapSymbols[widget.symbolCalculatorCharacter]!.symbolName,
                     height: 32,

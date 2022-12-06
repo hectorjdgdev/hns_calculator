@@ -9,34 +9,42 @@ class RectangularButton extends StatefulWidget {
 
 class _RectangularButtonState extends State<RectangularButton> {
   Color normalColor = Color.fromRGBO(46, 117, 255, 1);
-  Color pressedColor = Colors.red;
+  Color pressedColor = Colors.white;
   bool isPressed = false;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(left: 16, right: 16),
-      child: TextButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                (Set<MaterialState> states) {
-              if (states.contains(MaterialState.pressed)) return Colors.white;
-              return Colors.blue; // Defer to the widget's default.
-            }),
-            foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                (Set<MaterialState> states) {
-              if (states.contains(MaterialState.pressed)) return Colors.blue;
-              return Colors.white; // Defer to the widget's default.
-            }),
-            textStyle: MaterialStateProperty.resolveWith((states) {
-              // If the button is pressed, return size 40, otherwise 20
-              return const TextStyle(
-                  fontSize: 20, fontFamily: 'Urbanist-Light');
-            }),
+    return GestureDetector(
+      onTapDown: (tap){
+        setState(() {
+          isPressed = true;
+        });
+      },
+      onTapUp: (tap){
+        setState(() {
+          isPressed = false;
+        });
+      },
+      child: Container(
+        margin: EdgeInsets.only(left: 16, right: 16),
+        width: double.infinity,
+        height: 48,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: isPressed ? pressedColor:  normalColor,
+          borderRadius: BorderRadius.circular(6)
+        ),
+        child:  Center(
+          child: Text(
+            "DONATE",
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color:  isPressed ? normalColor : pressedColor ,
+                fontFamily: 'Urbanist'),
           ),
-          onPressed: () {},
-          child: const Text("DONATE")),
+        ),
+      ),
     );
   }
 }

@@ -17,42 +17,41 @@ class _CharacterCalculatorState extends State<CharacterCalculator> {
   final Color colorNormal = const Color.fromRGBO(249, 251, 255, 1);
   final Color colorOver = const Color.fromRGBO(46, 117, 255, 1);
 
-  bool hasBeenPressed = false;
+  bool isPressed = false;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 12, right: 12),
       height: 80,
-      child: TextButton(
-        onPressed: () {
+      child: GestureDetector(
+        onTapDown: (tap) {
           Provider.of<CalculatorController>(context, listen: false)
               .addStringCharater(widget.character);
+          setState(() {
+            isPressed = true;
+          });
         },
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
-            if (states.contains(MaterialState.pressed)) return colorOver;
-            return colorNormal; // Defer to the widget's default.
-          }),
-          shape: MaterialStateProperty.resolveWith<OutlinedBorder>((_) {
-            return const CircleBorder(side: BorderSide.none);
-          }),
-          side: MaterialStateProperty.resolveWith((states) {
-            return BorderSide.none;
-          }),
-          foregroundColor: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
-            if (states.contains(MaterialState.pressed)) return Colors.white;
-            return Colors.black; // Defer to the widget's default.
-          }),
-        ),
-        child: Text(
-          widget.character,
-          style: const TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.w400,
-              fontFamily: 'Urbanist-Regular'),
+        onTapUp: (tap) {
+          setState(() {
+            isPressed = false;
+          });
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: isPressed ? colorOver : colorNormal,
+              ),
+          child: Center(
+            child: Text(
+              widget.character,
+              style: TextStyle(
+                  fontSize: 32,
+                  color: isPressed ? colorNormal : Colors.black ,
+                  fontWeight: FontWeight.w400,
+                  fontFamily: 'Urbanist-Regular'),
+            ),
+          ),
         ),
       ),
     );
