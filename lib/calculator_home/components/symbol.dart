@@ -63,7 +63,7 @@ class _SymbolCalculatorState extends State<SymbolCalculator> {
       child: Container(
         margin: const EdgeInsets.only(top: 12, right: 12),
         height: 80,
-        child: OutlinedButton(
+        child: TextButton(
           onPressed: () {
             switch (widget.symbolCalculatorCharacter) {
               case SymbolCalculatorCharacter.REMOVE:
@@ -102,16 +102,14 @@ class _SymbolCalculatorState extends State<SymbolCalculator> {
             }
           },
           style: ButtonStyle(
-            overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
-              if (states.contains(MaterialState.pressed)) {
-                return mapSymbols[widget.symbolCalculatorCharacter]!
-                    .symbolColor;
-              }
-              return colorNormal;
-            }),
-            backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {
-              return colorNormal;
-            }),
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                  if (states.contains(MaterialState.pressed)) {
+                    return mapSymbols[widget.symbolCalculatorCharacter]!
+                      .symbolColor;
+                  }
+                  return colorNormal; // Defer to the widget's default.
+                }),
             shape: MaterialStateProperty.resolveWith<OutlinedBorder>((_) {
               return const CircleBorder(side: BorderSide.none);
             }),
