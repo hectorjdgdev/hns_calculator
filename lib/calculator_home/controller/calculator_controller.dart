@@ -3,17 +3,21 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
+import '../model/exchange_currency.dart';
+
 enum SymbolCalculatorCharacter { REMOVE, EQUAL, PLUS, MINUS, SWITCH, NONE, NUMBER, POINT }
 
 
 
 class CalculatorController extends ChangeNotifier {
   String numberStringVisual = "0";
+  String secondaryStringVisual = "0";
   String mathOperation = "";
   bool isFirstOperation = true;
   SymbolCalculatorCharacter isLastNumberOperation = SymbolCalculatorCharacter.NONE;
 
-
+  ExchangeCurrencyType selectedMainCurrency = ExchangeCurrencyType.HNS;
+  ExchangeCurrencyType selectedSecondaryCurrency = ExchangeCurrencyType.USD;
 
   void addStringCharater(String character) {
     if (((numberStringVisual == "0")  && (numberStringVisual != ".")) || (isLastNumberOperation != SymbolCalculatorCharacter.NUMBER))  {
@@ -84,5 +88,20 @@ class CalculatorController extends ChangeNotifier {
     mathOperation = "";
     notifyListeners();
 
+  }
+
+  void changeMainCurrency(ExchangeCurrencyType newMainCurrency){
+    selectedMainCurrency = newMainCurrency;
+    notifyListeners();
+  }
+
+  void switchCurrency(){
+    ExchangeCurrencyType temp = selectedMainCurrency;
+    selectedMainCurrency = selectedSecondaryCurrency;
+    selectedSecondaryCurrency = temp;
+    String tempString = numberStringVisual;
+    numberStringVisual = secondaryStringVisual;
+    secondaryStringVisual = tempString;
+    notifyListeners();
   }
 }

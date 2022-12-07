@@ -16,8 +16,9 @@ class PairSymbolCalculator {
 
 class SymbolCalculator extends StatefulWidget {
   final SymbolCalculatorCharacter symbolCalculatorCharacter;
+  final Function? callable;
 
-  const SymbolCalculator({Key? key, required this.symbolCalculatorCharacter})
+  const SymbolCalculator({Key? key,this.callable, required this.symbolCalculatorCharacter})
       : super(key: key);
 
   @override
@@ -63,7 +64,8 @@ class _SymbolCalculatorState extends State<SymbolCalculator> {
               break;
             case SymbolCalculatorCharacter.SWITCH:
               {
-
+                Provider.of<CalculatorController>(context, listen: false).switchCurrency();
+                widget.callable!();
               }
               break;
             case SymbolCalculatorCharacter.EQUAL:{
