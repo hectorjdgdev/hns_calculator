@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hns_calculator/calculator_home/components/character.dart';
 import 'package:provider/provider.dart';
 
@@ -21,11 +22,12 @@ class _CalculatorHomeState extends State<CalculatorHome> {
   @override
   Widget build(BuildContext context) {
 
-    Function stateFunction = (){
+    stateFunction(){
+      HapticFeedback.mediumImpact();
       setState(() {
         isMainExchanged = !isMainExchanged;
       });
-    };
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,

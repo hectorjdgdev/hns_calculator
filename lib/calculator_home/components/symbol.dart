@@ -108,6 +108,7 @@ class _SymbolCalculatorState extends State<SymbolCalculator> {
           });
         },
         child: Container(
+          key: Key(widget.symbolCalculatorCharacter.name),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: isPressed ? mapSymbols[widget.symbolCalculatorCharacter]!

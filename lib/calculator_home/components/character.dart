@@ -38,6 +38,7 @@ class _CharacterCalculatorState extends State<CharacterCalculator> {
           });
         },
         child: Container(
+          key: Key(widget.character),
           decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: isPressed ? colorOver : colorNormal,

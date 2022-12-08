@@ -94,8 +94,10 @@ class CalculatorController extends ChangeNotifier {
   }
 
   void changeMainCurrency(ExchangeCurrencyType newMainCurrency){
-    selectedMainCurrency = newMainCurrency;
-    notifyListeners();
+    if(newMainCurrency != selectedSecondaryCurrency && newMainCurrency != selectedMainCurrency){
+      selectedMainCurrency = newMainCurrency;
+      notifyListeners();
+    }
   }
 
   void switchCurrency(){
@@ -105,6 +107,7 @@ class CalculatorController extends ChangeNotifier {
     String tempString = numberStringVisual;
     numberStringVisual = secondaryStringVisual;
     secondaryStringVisual = tempString;
+
     notifyListeners();
   }
 
