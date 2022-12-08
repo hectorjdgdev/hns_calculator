@@ -130,7 +130,7 @@ class _NumberRowResultState extends State<NumberRowResult> {
                         textAlign: TextAlign.end,
                         style: TextStyle(
                             fontSize: 64,
-                            color: isPressed ? colorSelected : Colors.black,
+                            color:  widget.activeCalculator ? isPressed ? colorSelected : Colors.black :  colorText,
                             fontFamily: 'Urbanist-Light'),
                         maxLines: 1,
                         showCursor: true,

@@ -26,6 +26,7 @@ class CalculatorController extends ChangeNotifier {
       numberStringVisual += character;
     }
     isLastNumberOperation = SymbolCalculatorCharacter.NUMBER;
+    changeOperation();
     notifyListeners();
   }
 
@@ -36,6 +37,7 @@ class CalculatorController extends ChangeNotifier {
       }else{
         numberStringVisual = numberStringVisual.substring(0, numberStringVisual.length - 1);
       }
+      changeOperation();
       notifyListeners();
     }
   }
@@ -46,6 +48,7 @@ class CalculatorController extends ChangeNotifier {
     mathOperation = "";
     isFirstOperation = true;
     isLastNumberOperation = SymbolCalculatorCharacter.NONE;
+    secondaryStringVisual = "0";
     notifyListeners();
   }
 
@@ -86,8 +89,8 @@ class CalculatorController extends ChangeNotifier {
     result = exp.evaluate(EvaluationType.REAL, cm);
     numberStringVisual = result.toString();
     mathOperation = "";
+    changeOperation();
     notifyListeners();
-
   }
 
   void changeMainCurrency(ExchangeCurrencyType newMainCurrency){
@@ -103,5 +106,9 @@ class CalculatorController extends ChangeNotifier {
     numberStringVisual = secondaryStringVisual;
     secondaryStringVisual = tempString;
     notifyListeners();
+  }
+
+  void changeOperation(){
+    secondaryStringVisual = (double.parse(numberStringVisual)*0.5).toString();
   }
 }
