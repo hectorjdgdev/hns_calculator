@@ -18,10 +18,11 @@ class _RectangularButtonState extends State<RectangularButton> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (tap){
-        widget.onTap();
+
         setState(() {
           isPressed = true;
         });
+        widget.onTap();
       },
       onTapCancel: (){
         setState(() {
