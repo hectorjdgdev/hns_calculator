@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class RectangularButton extends StatefulWidget {
-  const RectangularButton({Key? key}) : super(key: key);
+  final String text;
+  final Function onTap;
+  const RectangularButton({Key? key, required this.text, required this.onTap}) : super(key: key);
 
   @override
   State<RectangularButton> createState() => _RectangularButtonState();
@@ -16,8 +18,14 @@ class _RectangularButtonState extends State<RectangularButton> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (tap){
+        widget.onTap();
         setState(() {
           isPressed = true;
+        });
+      },
+      onTapCancel: (){
+        setState(() {
+          isPressed = false;
         });
       },
       onTapUp: (tap){
@@ -36,7 +44,7 @@ class _RectangularButtonState extends State<RectangularButton> {
         ),
         child:  Center(
           child: Text(
-            "DONATE",
+            widget.text,
             style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
