@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 import 'calculator_home/controller/calculator_controller.dart';
+import 'calculator_home/views/calculator_container.dart';
 import 'calculator_home/views/calculator_home.dart';
 import 'utils/applicationt.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   runApp(const MyApp());
 }
 
@@ -26,7 +30,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const CalculatorHome(),
+        home: const CalculatorContainer(),
       ),
     );
   }

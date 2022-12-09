@@ -84,6 +84,11 @@ class _SymbolCalculatorState extends State<SymbolCalculator> {
             isPressed = true;
           });
         },
+        onTapCancel: (){
+          setState(() {
+            isPressed = false;
+          });
+        },
         onTapUp: (tap){
           setState(() {
             isPressed = false;

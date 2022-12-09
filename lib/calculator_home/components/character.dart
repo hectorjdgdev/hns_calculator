@@ -32,6 +32,11 @@ class _CharacterCalculatorState extends State<CharacterCalculator> {
             isPressed = true;
           });
         },
+        onTapCancel: (){
+          setState(() {
+            isPressed = false;
+          });
+        },
         onTapUp: (tap) {
           setState(() {
             isPressed = false;

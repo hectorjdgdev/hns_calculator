@@ -5,6 +5,9 @@
         android:label="hns_calculator"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
+       <meta-data
+           android:name="com.google.android.gms.ads.APPLICATION_ID"
+           android:value="ca-app-pub-6165990729522112~7026058915"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
