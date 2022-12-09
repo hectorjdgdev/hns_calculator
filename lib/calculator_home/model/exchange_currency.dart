@@ -22,30 +22,30 @@ class ExchangeCurrency {
     ExchangeCurrencyType.HNS: const ExchangeInfo(
       icon: 'assets/icons/hns_icon_light.svg',
       symbolCalculator: 'assets/icons/hsn_money.svg',
-      exchangeName: 'Handshake,',
+      exchangeName: 'Handshake',
       exchangeSymbol: 'HNS',
     ),
     ExchangeCurrencyType.BTC: const ExchangeInfo(
       icon: 'assets/icons/btc_icon_light.svg',
       symbolCalculator: 'assets/icons/btc_money.svg',
-      exchangeName: 'Bitcoin,',
+      exchangeName: 'Bitcoin',
       exchangeSymbol: 'BTC',
     ),
     ExchangeCurrencyType.USD: const ExchangeInfo(
         icon: 'assets/icons/usd_icon_light.svg',
         symbolCalculator: 'assets/icons/usd_money.svg',
-        exchangeName: 'US Dollar,',
+        exchangeName: 'US Dollar',
         exchangeSymbol: 'USD'),
     ExchangeCurrencyType.EUR: const ExchangeInfo(
       icon: 'assets/icons/eur_icon_light.svg',
       symbolCalculator: 'assets/icons/eur_money.svg',
-      exchangeName: 'Euro,',
+      exchangeName: 'Euro',
       exchangeSymbol: 'EUR',
     ),
     ExchangeCurrencyType.GBP: const ExchangeInfo(
         icon: 'assets/icons/gbp_icon_light.svg',
         symbolCalculator: 'assets/icons/gbp_money.svg',
-        exchangeName: 'British Pound Sterling,',
+        exchangeName: 'British Pound Sterling',
         exchangeSymbol: 'GBP')
   };
 
