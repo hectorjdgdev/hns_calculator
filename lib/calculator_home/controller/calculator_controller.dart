@@ -4,44 +4,60 @@ import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 import '../model/exchange_currency.dart';
+import 'conversion_api.dart';
 
-enum SymbolCalculatorCharacter { REMOVE, EQUAL, PLUS, MINUS, SWITCH, NONE, NUMBER, POINT }
-
-
+enum SymbolCalculatorCharacter {
+  REMOVE,
+  EQUAL,
+  PLUS,
+  MINUS,
+  SWITCH,
+  NONE,
+  NUMBER,
+  POINT
+}
 
 class CalculatorController extends ChangeNotifier {
   String numberStringVisual = "0";
   String secondaryStringVisual = "0";
   String mathOperation = "";
   bool isFirstOperation = true;
-  SymbolCalculatorCharacter isLastNumberOperation = SymbolCalculatorCharacter.NONE;
+  SymbolCalculatorCharacter isLastNumberOperation =
+      SymbolCalculatorCharacter.NONE;
 
   ExchangeCurrencyType selectedMainCurrency = ExchangeCurrencyType.HNS;
   ExchangeCurrencyType selectedSecondaryCurrency = ExchangeCurrencyType.USD;
 
   void addStringCharater(String character) {
-    if (((numberStringVisual == "0")  && (numberStringVisual != ".")) || (isLastNumberOperation != SymbolCalculatorCharacter.NUMBER))  {
-      numberStringVisual = character;
-    } else {
-      numberStringVisual += character;
+    if (!(character == "." &&
+        isLastNumberOperation == SymbolCalculatorCharacter.POINT)) {
+      if (((numberStringVisual == "0") && (numberStringVisual != ".")) ||
+          (isLastNumberOperation != SymbolCalculatorCharacter.NUMBER)) {
+        numberStringVisual = character;
+      } else {
+        numberStringVisual += character;
+      }
+      if (character == ".") {
+        isLastNumberOperation = SymbolCalculatorCharacter.POINT;
+      } else {
+        isLastNumberOperation = SymbolCalculatorCharacter.NUMBER;
+      }
+      changeOperation();
     }
-    isLastNumberOperation = SymbolCalculatorCharacter.NUMBER;
-    changeOperation();
-    notifyListeners();
   }
 
   void remove() {
     if (numberStringVisual.isNotEmpty) {
-      if(numberStringVisual.length == 1){
+      if (numberStringVisual.length == 1) {
         numberStringVisual = "0";
-      }else{
-        numberStringVisual = numberStringVisual.substring(0, numberStringVisual.length - 1);
+      } else {
+        numberStringVisual =
+            numberStringVisual.substring(0, numberStringVisual.length - 1);
       }
       changeOperation();
       notifyListeners();
     }
   }
-
 
   void removeAll() {
     numberStringVisual = '0';
@@ -53,8 +69,8 @@ class CalculatorController extends ChangeNotifier {
   }
 
   void clickMathOperation(SymbolCalculatorCharacter operation) {
-    if(isLastNumberOperation != operation){
-      if(isLastNumberOperation == SymbolCalculatorCharacter.NUMBER){
+    if (isLastNumberOperation != operation) {
+      if (isLastNumberOperation == SymbolCalculatorCharacter.NUMBER) {
         equalOperation();
       }
       isFirstOperation = false;
@@ -64,18 +80,18 @@ class CalculatorController extends ChangeNotifier {
             mathOperation = "$numberStringVisual-";
           }
           break;
-        case SymbolCalculatorCharacter.PLUS: {
-          mathOperation = "$numberStringVisual+";
-        }
-        break;
+        case SymbolCalculatorCharacter.PLUS:
+          {
+            mathOperation = "$numberStringVisual+";
+          }
+          break;
       }
-      if(numberStringVisual == "0"){
+      if (numberStringVisual == "0") {
         numberStringVisual = "0";
       }
       notifyListeners();
     }
     isLastNumberOperation = operation;
-
   }
 
   void equalOperation() {
@@ -93,25 +109,29 @@ class CalculatorController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeMainCurrency(ExchangeCurrencyType newMainCurrency){
-    if(newMainCurrency != selectedSecondaryCurrency && newMainCurrency != selectedMainCurrency){
+  void changeMainCurrency(ExchangeCurrencyType newMainCurrency) {
+    if (newMainCurrency != selectedSecondaryCurrency &&
+        newMainCurrency != selectedMainCurrency) {
       selectedMainCurrency = newMainCurrency;
-      notifyListeners();
+      changeOperation();
     }
   }
 
-  void switchCurrency(){
+  void switchCurrency() {
     ExchangeCurrencyType temp = selectedMainCurrency;
     selectedMainCurrency = selectedSecondaryCurrency;
     selectedSecondaryCurrency = temp;
     String tempString = numberStringVisual;
     numberStringVisual = secondaryStringVisual;
     secondaryStringVisual = tempString;
-
-    notifyListeners();
+    changeOperation();
   }
 
-  void changeOperation(){
-    secondaryStringVisual = (double.parse(numberStringVisual)*0.5).toString();
+  Future<void> changeOperation() async {
+    var rate = await ConversionApi.getConversionRate(
+        selectedMainCurrency.name, selectedSecondaryCurrency.name);
+    secondaryStringVisual =
+        (double.parse(numberStringVisual) * rate).toStringAsFixed(4);
+    notifyListeners();
   }
 }

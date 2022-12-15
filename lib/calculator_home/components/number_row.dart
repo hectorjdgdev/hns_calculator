@@ -59,7 +59,7 @@ class _NumberRowResultState extends State<NumberRowResult> {
             builder: (context) {
               Application.geralContext = context;
               return FractionallySizedBox(
-                heightFactor: 500 / MediaQuery.of(context).size.height,
+                heightFactor: 490 / MediaQuery.of(context).size.height,
                 child: Column(
                   children: [
                     const SizedBox(

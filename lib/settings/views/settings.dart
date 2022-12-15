@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hns_calculator/common/ui/RectangularButton.dart';
@@ -13,6 +15,44 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  late StreamSubscription<dynamic> _subscription;
+
+  @override
+  void initState() {
+    final Stream purchaseUpdated = InAppPurchase.instance.purchaseStream;
+    _subscription = purchaseUpdated.listen((purchaseDetailsList) {
+      _listenToPurchaseUpdated(purchaseDetailsList);
+    }, onDone: () {
+      _subscription.cancel();
+    }, onError: (error) {
+      // handle error here.
+    });
+    super.initState();
+  }
+
+  void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
+    purchaseDetailsList.forEach((PurchaseDetails purchaseDetails) async {
+      if (purchaseDetails.status == PurchaseStatus.pending) {
+        // _showPendingUI();
+      } else {
+        if (purchaseDetails.status == PurchaseStatus.error) {
+          // _handleError(purchaseDetails.error!);
+        } else if (purchaseDetails.status == PurchaseStatus.purchased ||
+            purchaseDetails.status == PurchaseStatus.restored) {
+          // bool valid = await _verifyPurchase(purchaseDetails);
+          // if (valid) {
+          //   _deliverProduct(purchaseDetails);
+          // } else {
+          //   _handleInvalidPurchase(purchaseDetails);
+          // }
+        }
+        if (purchaseDetails.pendingCompletePurchase) {
+          await InAppPurchase.instance.completePurchase(purchaseDetails);
+        }
+      }
+    });
+  }
+
   Future<void> getProducts() async {
     final bool available = await InAppPurchase.instance.isAvailable();
     if (available) {
@@ -24,6 +64,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         // Handle the error.
       }
       List<ProductDetails> products = response.productDetails;
+      final PurchaseParam purchaseParam =
+          PurchaseParam(productDetails: products[0]);
+      InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
     } else {
       print("error");
     }

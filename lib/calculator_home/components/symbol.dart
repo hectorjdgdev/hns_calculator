@@ -85,13 +85,17 @@ class _SymbolCalculatorState extends State<SymbolCalculator> {
           });
         },
         onTapCancel: (){
-          setState(() {
-            isPressed = false;
+          Future.delayed(Duration(milliseconds: 100), () {
+            setState(() {
+              isPressed = false;
+            });
           });
         },
         onTapUp: (tap){
-          setState(() {
-            isPressed = false;
+          Future.delayed(Duration(milliseconds: 100), () {
+            setState(() {
+              isPressed = false;
+            });
           });
         },
         onLongPressStart: (tap) {
@@ -108,8 +112,10 @@ class _SymbolCalculatorState extends State<SymbolCalculator> {
           });
         },
         onLongPressEnd: (tap){
-          setState(() {
-            isPressed = false;
+          Future.delayed(Duration(milliseconds: 100), () {
+            setState(() {
+              isPressed = false;
+            });
           });
         },
         child: Container(

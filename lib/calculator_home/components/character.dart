@@ -25,6 +25,7 @@ class _CharacterCalculatorState extends State<CharacterCalculator> {
       margin: const EdgeInsets.only(top: 12, right: 12),
       height: 80,
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTapDown: (tap) {
           Provider.of<CalculatorController>(context, listen: false)
               .addStringCharater(widget.character);
@@ -33,13 +34,17 @@ class _CharacterCalculatorState extends State<CharacterCalculator> {
           });
         },
         onTapCancel: (){
-          setState(() {
-            isPressed = false;
+          Future.delayed(Duration(milliseconds: 100), () {
+            setState(() {
+              isPressed = false;
+            });
           });
         },
         onTapUp: (tap) {
-          setState(() {
-            isPressed = false;
+          Future.delayed(Duration(milliseconds: 100), () {
+            setState(() {
+              isPressed = false;
+            });
           });
         },
         child: Container(

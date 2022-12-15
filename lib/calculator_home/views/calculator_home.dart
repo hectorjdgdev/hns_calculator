@@ -33,8 +33,8 @@ class _CalculatorHomeState extends State<CalculatorHome> {
 
     final BannerAd myBanner = BannerAd(
       adUnitId: Platform.isAndroid
-          ? 'ca-app-pub-6165990729522112/5363786591'
-          : 'ca-app-pub-3940256099942544/2934735716',
+          ? 'ca-app-pub-7166770183051406/3957413570'
+          : 'ca-app-pub-7166770183051406/7593406258',
       size:
       AdSize(width: MediaQuery.of(context).size.width.toInt(), height: 100),
       request: const AdRequest(),
@@ -57,12 +57,12 @@ class _CalculatorHomeState extends State<CalculatorHome> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.2,
+                height: MediaQuery.of(context).size.height * 0.22,
                 child: Stack(
                   children: [
                     AnimatedPositioned(
                       key: Key('animator'),
-                      top: isMainExchanged ? 0 : 100,
+                      top: isMainExchanged ? 0 : MediaQuery.of(context).size.height * 0.105,
                       curve: Curves.bounceOut,
                       duration: Duration(milliseconds: 500),
                       child: NumberRowResult(
@@ -70,7 +70,7 @@ class _CalculatorHomeState extends State<CalculatorHome> {
                     ),
                     AnimatedPositioned(
                       key: Key('animator2'),
-                      top: isMainExchanged ? 100 : 0,
+                      top: isMainExchanged ? MediaQuery.of(context).size.height * 0.105 : 0,
                       // left: 0,
                       curve: Curves.bounceOut,
                       duration: Duration(milliseconds: 500),
@@ -121,7 +121,7 @@ class _CalculatorHomeState extends State<CalculatorHome> {
                 ),
               )),
               SizedBox(
-                height: 100,
+                height: 90,
                 child: Container(
                   margin: EdgeInsets.only(bottom: 10),
                   alignment: Alignment.center,
