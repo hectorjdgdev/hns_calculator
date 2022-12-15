@@ -129,7 +129,7 @@ class CalculatorController extends ChangeNotifier {
 
   Future<void> changeOperation() async {
     var rate = await ConversionApi.getConversionRate(
-        selectedMainCurrency.name, selectedSecondaryCurrency.name);
+        selectedMainCurrency, selectedSecondaryCurrency);
     secondaryStringVisual =
         (double.parse(numberStringVisual) * rate).toStringAsFixed(4);
     notifyListeners();

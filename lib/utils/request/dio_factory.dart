@@ -17,7 +17,7 @@ class DioFactory{
         .interceptor);
   }
 
-  getMethod(String url, Map<String, dynamic> queryParameter){
+  getMethod(String url, {Map<String, dynamic>? queryParameter}){
     return  dio.get(
         url,
         queryParameters: queryParameter,
