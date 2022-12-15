@@ -17,6 +17,7 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		ED86CFC98424D8B6300C0353 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3194A7F779BCB076CBE8972 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +56,7 @@
 		C9449C969DD092929874B3BC /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC9EF2675009935799D00DA2 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		E205F87800678FC2420B02C7 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
+		E3194A7F779BCB076CBE8972 /* GoogleService-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Runner/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				97C146EF1CF9000F007C117D /* Products */,
 				C8D55602E354C509F84AF9BF /* Pods */,
 				9A7A31C1E70E6C49A3399B2C /* Frameworks */,
+				E3194A7F779BCB076CBE8972 /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -153,6 +156,7 @@
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				1275CCED3EC3F34CB0F4B02D /* [CP] Embed Pods Frameworks */,
 				8340E700294246DF00CB4E07 /* Embed Frameworks */,
+				226E7E541108FE33A4B19FDF /* [firebase_crashlytics] Crashlytics Upload Symbols */,
 			);
 			buildRules = (
 			);
@@ -206,6 +210,7 @@
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
+				ED86CFC98424D8B6300C0353 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +233,26 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		226E7E541108FE33A4B19FDF /* [firebase_crashlytics] Crashlytics Upload Symbols */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}\"",
+				"\"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)\"",
+			);
+			name = "[firebase_crashlytics] Crashlytics Upload Symbols";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/FirebaseCrashlytics/upload-symbols\" --flutter-project \"$PROJECT_DIR/firebase_app_id_file.json\" ";
 		};
 		23B648B6FF8E2DB5A5316583 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
