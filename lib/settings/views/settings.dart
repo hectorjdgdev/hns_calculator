@@ -6,6 +6,7 @@ import 'package:hns_calculator/common/ui/RectangularButton.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
 import '../components/item_radio.dart';
+import '../controller/payments_controller.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -21,55 +22,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void initState() {
     final Stream purchaseUpdated = InAppPurchase.instance.purchaseStream;
     _subscription = purchaseUpdated.listen((purchaseDetailsList) {
-      _listenToPurchaseUpdated(purchaseDetailsList);
+      PaymentController.listenToPurchaseUpdated(purchaseDetailsList);
     }, onDone: () {
       _subscription.cancel();
     }, onError: (error) {
-      // handle error here.
+      print(error);
     });
     super.initState();
-  }
-
-  void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
-    purchaseDetailsList.forEach((PurchaseDetails purchaseDetails) async {
-      if (purchaseDetails.status == PurchaseStatus.pending) {
-        // _showPendingUI();
-      } else {
-        if (purchaseDetails.status == PurchaseStatus.error) {
-          // _handleError(purchaseDetails.error!);
-        } else if (purchaseDetails.status == PurchaseStatus.purchased ||
-            purchaseDetails.status == PurchaseStatus.restored) {
-          // bool valid = await _verifyPurchase(purchaseDetails);
-          // if (valid) {
-          //   _deliverProduct(purchaseDetails);
-          // } else {
-          //   _handleInvalidPurchase(purchaseDetails);
-          // }
-        }
-        if (purchaseDetails.pendingCompletePurchase) {
-          await InAppPurchase.instance.completePurchase(purchaseDetails);
-        }
-      }
-    });
-  }
-
-  Future<void> getProducts() async {
-    final bool available = await InAppPurchase.instance.isAvailable();
-    if (available) {
-      // The store cannot be reached or accessed. Update the UI accordingly.
-      const Set<String> _kIds = <String>{'hns_subscription_0_99'};
-      final ProductDetailsResponse response =
-          await InAppPurchase.instance.queryProductDetails(_kIds);
-      if (response.notFoundIDs.isNotEmpty) {
-        // Handle the error.
-      }
-      List<ProductDetails> products = response.productDetails;
-      final PurchaseParam purchaseParam =
-          PurchaseParam(productDetails: products[0]);
-      InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
-    } else {
-      print("error");
-    }
   }
 
   @override
@@ -204,13 +163,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(
                 height: 24,
               ),
-              RectangularButton(
-                onTap: () {
-                  getProducts();
-                  // InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
-                },
-                text: "No Ads for 0.99",
-              )
+              // RectangularButton(
+              //   onTap: () {
+              //     PaymentController.getProducts();
+              //     // InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
+              //   },
+              //   text: "No Ads for 0.99",
+              // )
             ],
           ),
         ),

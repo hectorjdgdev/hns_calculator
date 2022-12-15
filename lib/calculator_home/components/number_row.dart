@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../utils/applicationt.dart';
 import '../controller/calculator_controller.dart';
+import 'cursor.dart';
 import 'item_exchange.dart';
 
 class NumberRowResult extends StatefulWidget {
@@ -139,6 +140,7 @@ class _NumberRowResultState extends State<NumberRowResult> {
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.only(bottom: 0)),
                       )),
+                      widget.activeCalculator ?  CursorElement() : Container()
                     ],
                   );
                 },
