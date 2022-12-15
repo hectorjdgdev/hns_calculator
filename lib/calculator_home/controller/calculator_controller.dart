@@ -33,10 +33,15 @@ class CalculatorController extends ChangeNotifier {
         isLastNumberOperation == SymbolCalculatorCharacter.POINT)) {
       if (((numberStringVisual == "0") && (numberStringVisual != ".")) ||
           (isLastNumberOperation != SymbolCalculatorCharacter.NUMBER)) {
-        numberStringVisual = character;
+        if (isLastNumberOperation == SymbolCalculatorCharacter.POINT) {
+          numberStringVisual += character;
+        } else {
+          numberStringVisual = character;
+        }
       } else {
         numberStringVisual += character;
       }
+
       if (character == ".") {
         isLastNumberOperation = SymbolCalculatorCharacter.POINT;
       } else {

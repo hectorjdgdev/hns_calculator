@@ -24,7 +24,6 @@ class _CursorElementState extends State<CursorElement>
       if(controller.value.toStringAsFixed(0) !=  _visible ){
         setState(() {
           _visible = int.parse(controller.value.toStringAsFixed(0));
-          print(_visible);
         });
       }
     });

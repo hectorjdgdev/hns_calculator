@@ -34,14 +34,14 @@ class _CharacterCalculatorState extends State<CharacterCalculator> {
           });
         },
         onTapCancel: (){
-          Future.delayed(Duration(milliseconds: 100), () {
+          Future.delayed(const Duration(milliseconds: 100), () {
             setState(() {
               isPressed = false;
             });
           });
         },
         onTapUp: (tap) {
-          Future.delayed(Duration(milliseconds: 100), () {
+          Future.delayed(const Duration(milliseconds: 100), () {
             setState(() {
               isPressed = false;
             });
