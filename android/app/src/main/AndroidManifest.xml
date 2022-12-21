@@ -2,7 +2,7 @@
     package="com.ideation.mobile.hnscalculator.hns_calculator">
     <uses-permission android:name="android.permission.VIBRATE" />
    <application
-        android:label="hns_calculator"
+        android:label="HNS switch"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
        <meta-data
