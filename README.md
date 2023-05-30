@@ -15,5 +15,8 @@ The app supports two cryptocurrencies, Handshake and Bitcoin. These can be conve
 Besides the currency conversion, the app has the capability to add and subtract values on all the supported currencies, This male it faster to check how much money you have in total, and allows you to see how much it is worth in Handshake and the supported currencies.
 
 
-
+![Alt text](/screenshots/1.png)
+![Alt text](/screenshots/2.png)
+![Alt text](/screenshots/3.png)
+![Alt text](/screenshots/4.png)
 
