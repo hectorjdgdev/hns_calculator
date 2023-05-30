@@ -4,13 +4,16 @@ HNS Calculator
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Handshake coin conversion made easy.
 
-A few resources to get you started if this is your first Flutter project:
+Instantly calculate HNS price in other currencies.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+HNS Switch is a Handshake coin converter that is seamless and simple to use on any phone.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The app supports two cryptocurrencies, Handshake and Bitcoin. These can be converted into three regular currencies, US Dollar, Euro, and British Pound Sterling.
+
+Besides the currency conversion, the app has the capability to add and subtract values on all the supported currencies, This male it faster to check how much money you have in total, and allows you to see how much it is worth in Handshake and the supported currencies.
+
+
+
+
